@@ -11,7 +11,7 @@ public class Account {
         balance += i;
     }
 
-    public int getBalance() {
-        return balance;
+    public String getBalance() {
+        return String.format("$%d", balance);
     }
 }

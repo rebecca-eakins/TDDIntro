@@ -16,7 +16,7 @@ public class AccountTests {
         testAccount.deposit(50);
 
         // Assert
-        assertThat(testAccount.getBalance(), is(150));
+        assertThat(testAccount.getBalance(), is("$150"));
     }
 //
 //    @Test
