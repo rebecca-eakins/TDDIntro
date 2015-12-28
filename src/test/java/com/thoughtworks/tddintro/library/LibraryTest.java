@@ -2,6 +2,8 @@ package com.thoughtworks.tddintro.library;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -14,24 +16,25 @@ import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
 
 public class LibraryTest {
+    private List<String> books;
+    private PrintStream printStream;
+    private DateTimeFormatter dateTimeFormatter;
+    private Library library;
 
-
-    /*
-
-        List books tests. Implement the first three tests for the Verify exercise
-
-     */
+    @Before
+    public void setUp(){
+        books = new ArrayList<>();
+        printStream = mock(PrintStream.class);
+        dateTimeFormatter = mock(DateTimeFormatter.class);
+    }
 
 
     @Test
     public void shouldPrintBookTitleWhenThereIsOneBook() {
 
-        List<String> books = new ArrayList<>();
         String title = "Book Title";
         books.add(title);
-        PrintStream printStream = mock(PrintStream.class);
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
-        Library library = new Library(books, printStream, dateTimeFormatter);
+        library = new Library(books, printStream, dateTimeFormatter);
 
         library.listBooks();
         verify(printStream).println(title);
@@ -39,10 +42,7 @@ public class LibraryTest {
 
     @Test
     public void shouldPrintNothingWhenThereAreNoBooks() {
-        List<String> books = new ArrayList<>();
-        PrintStream printStream = mock(PrintStream.class);
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
-        Library library = new Library(books, printStream, dateTimeFormatter);
+        library = new Library(books, printStream, dateTimeFormatter);
 
         library.listBooks();
         verify(printStream, never()).println();
@@ -51,11 +51,14 @@ public class LibraryTest {
     @Test
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() throws IOException {
 
+        books.add("1");
+        books.add("2");
+        library = new Library(books, printStream, dateTimeFormatter);
+        library.listBooks();
 
-        BufferedReader reader = mock(BufferedReader.class);
+        verify(printStream).println("1");
+        verify(printStream).println("2");
 
-        when(reader.readLine()).thenReturn("1", "2");
-        // implement me
     }
 
     /*
@@ -67,6 +70,7 @@ public class LibraryTest {
     
     // This one is done for you
     @Test
+    @Ignore
     public void shouldWelcomeUser() {
         List<String> books = new ArrayList<>();
         PrintStream printStream = mock(PrintStream.class);
@@ -83,6 +87,7 @@ public class LibraryTest {
     }
 
     @Test
+    @Ignore
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsAnEmptyString() {
         List<String> books = new ArrayList<>();
         PrintStream printStream = mock(PrintStream.class);
@@ -99,6 +104,7 @@ public class LibraryTest {
     }
 
     @Test
+    @Ignore
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
 
         // implement me
