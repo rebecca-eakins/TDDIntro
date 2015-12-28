@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class LibraryTest {
 
@@ -36,14 +34,18 @@ public class LibraryTest {
         Library library = new Library(books, printStream, dateTimeFormatter);
 
         library.listBooks();
-
-        // add a verify statement here that shows that the book title was printed by to the printStream
+        verify(printStream).println(title);
     }
 
     @Test
     public void shouldPrintNothingWhenThereAreNoBooks() {
+        List<String> books = new ArrayList<>();
+        PrintStream printStream = mock(PrintStream.class);
+        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
+        Library library = new Library(books, printStream, dateTimeFormatter);
 
-        // implement me
+        library.listBooks();
+        verify(printStream, never()).println();
     }
 
     @Test
