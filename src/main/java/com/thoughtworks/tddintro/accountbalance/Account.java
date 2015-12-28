@@ -14,4 +14,8 @@ public class Account {
     public String getBalance() {
         return String.format("$%d", balance);
     }
+
+    public void withdraw(int i) {
+        balance -= i;
+    }
 }
