@@ -3,10 +3,8 @@ package com.thoughtworks.tddintro.library;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -31,7 +29,6 @@ public class LibraryTest {
 
     @Test
     public void shouldPrintBookTitleWhenThereIsOneBook() {
-
         String title = "Book Title";
         books.add(title);
         library = new Library(books, printStream, dateTimeFormatter);
@@ -50,7 +47,6 @@ public class LibraryTest {
 
     @Test
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() throws IOException {
-
         books.add("1");
         books.add("2");
         library = new Library(books, printStream, dateTimeFormatter);
@@ -70,11 +66,7 @@ public class LibraryTest {
     
     // This one is done for you
     @Test
-    @Ignore
     public void shouldWelcomeUser() {
-        List<String> books = new ArrayList<>();
-        PrintStream printStream = mock(PrintStream.class);
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
         Library library = new Library(books, printStream, dateTimeFormatter);
 
         // We don't need to mock DateTime because it is a value object
@@ -87,27 +79,24 @@ public class LibraryTest {
     }
 
     @Test
-    @Ignore
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsAnEmptyString() {
-        List<String> books = new ArrayList<>();
-        PrintStream printStream = mock(PrintStream.class);
-        DateTime time = new DateTime();
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
+        DateTime time =  new DateTime();
 
         when(dateTimeFormatter.print(time)).thenReturn("");
-
-        Library library = new Library(books, printStream, dateTimeFormatter);
+        library = new Library(books, printStream, dateTimeFormatter);
 
         library.welcome(time);
-
-        // add a verify here
+        verify(printStream).println("Welcome to the library! The current time is ");
     }
 
     @Test
-    @Ignore
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
+        DateTime time = new DateTime();
 
-        // implement me
-        // then move common test variables into a setup method
+        when(dateTimeFormatter.print(time)).thenReturn("party time!");
+        Library library = new Library(books, printStream, dateTimeFormatter);
+
+        library.welcome(time);
+        verify(printStream).println(contains("party time!"));
     }
 }
