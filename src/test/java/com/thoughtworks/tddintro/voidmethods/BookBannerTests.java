@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 
 public class BookBannerTests {
     @Test
-    @Ignore // Remove each @Ignore to allow the test to run
     public void shouldRemoveBannedBooksFromLibrary() {
         Collection<String> bannedBooks = new ArrayList<String>();
         bannedBooks.add("Tom Sawyer");
