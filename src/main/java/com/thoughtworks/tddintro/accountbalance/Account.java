@@ -7,13 +7,13 @@ public class Account {
         balance = startingBalance;
     }
 
-    public void deposit(int i) {
-        balance += i;
+    public void deposit(int amount) {
+        balance += amount;
     }
 
-    public void withdraw(int i) {
-        if (balance < i) return;
-        balance -= i;
+    public void withdraw(int amount) {
+        if (balance < amount) return;
+        balance -= amount;
     }
 
     public String getBalance() {
